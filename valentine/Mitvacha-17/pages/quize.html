@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Know Me?</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .quiz-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .question-card {
+            display: none;
+        }
+
+        .question-card.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        h2 {
+            color: #d81b60;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .option-btn {
+            padding: 15px;
+            border: 2px solid #ffb7c5;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+            color: #5a2d3b;
+        }
+
+        .option-btn:hover {
+            background: #ffb7c5;
+            color: white;
+        }
+
+        .option-btn.selected {
+            background: #d81b60;
+            color: white;
+            border-color: #d81b60;
+        }
+
+        .next-btn {
+            margin-top: 20px;
+            padding: 10px 30px;
+            background: #d81b60;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        .result-section {
+            display: none;
+        }
+
+        .score-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d81b60;
+            margin: 20px 0;
+        }
+
+        .message-display {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .wrong-answers {
+            text-align: left;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .wrong-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #ffebee;
+            border-radius: 5px;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            color: #880e4f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-overlay"></div>
+
+    <div class="quiz-container">
+
+        <div id="quiz-content">
+            <h2 id="question-text">Question 1</h2>
+            <div class="options-grid" id="options-container">
+                <!-- Options will be injected here -->
+            </div>
+            <button class="next-btn" id="next-btn">Next</button>
+        </div>
+
+        <div class="result-section" id="result-section">
+            <h2>Quiz Completed!</h2>
+            <div class="score-display">Score: <span id="score">0</span>/10</div>
+            <div class="message-display" id="message"></div>
+
+            <div id="wrong-answers-container" class="wrong-answers" style="display: none;">
+                <h3>Mistakes were made:</h3>
+                <!-- Wrong answers list -->
+            </div>
+
+            <a href="../index.html" class="back-btn">Return Home</a>
+        </div>
+
+        <div id="already-taken" style="display: none;">
+            <h2>You've already taken the quiz!</h2>
+            <p>No retakes allowed 😉</p>
+            <a href="../index.html" class="back-btn">Go Back</a>
+        </div>
+
+    </div>
+
+    <script src="quiz_script.js"></script>
+</body>
+
+</html>

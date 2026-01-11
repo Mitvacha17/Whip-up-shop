@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pink Lotus Dashboard</title>
+    <link rel="stylesheet" href="main.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Nunito:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="bg-overlay"></div>
+    <div class="petals-container" id="petals-container"></div>
+
+    <div class="dashboard-container">
+        <!-- Header Section -->
+        <header class="dashboard-header">
+            <div class="logo-area">
+                <i class="fas fa-spa logo-icon"></i>
+                <h1>My Universe</h1>
+            </div>
+
+            <div class="action-bar">
+                <div class="select-wrapper">
+                    <label for="folder-select" class="sr-only">Select Folder</label>
+                    <select id="folder-select" class="custom-select">
+                        <option value="Home">Home</option>
+                        <option value="valentine">Valentine</option>
+                    </select>
+                </div>
+
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search files...">
+                </div>
+            </div>
+        </header>
+
+        <!-- Breadcrumb Navigation -->
+        <div class="breadcrumb-nav">
+            <span class="breadcrumb-item active" id="breadcrumb-path">Home</span>
+        </div>
+
+        <!-- Main Content Grid -->
+        <main class="content-grid" id="content-grid">
+            <!-- Dynamic Content will be injected here -->
+            <div class="grid-item folder">
+                <div class="icon"><i class="fas fa-folder"></i></div>
+                <div class="name">Photos</div>
+            </div>
+        </main>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
