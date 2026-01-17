@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Force hide scrollbars via JS as ultimate fallback
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
     const envelopeWrapper = document.getElementById('envelope-wrapper');
     const letterPopup = document.getElementById('letter-popup');
     const closeLetterBtn = document.getElementById('close-letter');

@@ -1,3 +1,38 @@
+/* Global Reset & Ultimate Scrollbar Burial */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-corner {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    visibility: hidden !important;
+}
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: clip !important;
+    /* Aggressively clips any overflow */
+    position: fixed;
+    top: 0;
+    left: 0;
+    touch-action: none;
+    background: radial-gradient(circle at center, #ffe6ea 0%, #ffc0cb 100%);
+}
+
 :root {
     --primary-pink: #ffb7c5;
     --dark-pink: #e75480;
@@ -9,17 +44,15 @@
 }
 
 body {
-    margin: 0;
-    padding: 0;
     font-family: 'Nunito', sans-serif;
-    background: radial-gradient(circle at center, #ffe6ea 0%, #ffc0cb 100%);
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
 }
+
+/* Remove this class as we want the body to never scroll */
+/* body.overlay-open { overflow-y: auto; } */
 
 .bg-overlay {
     position: absolute;
@@ -154,8 +187,8 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
@@ -164,7 +197,15 @@ body {
     backdrop-filter: blur(5px);
     animation: fadeIn 0.5s ease;
     padding: 20px;
+    /* Reduced to prevent overflow */
     box-sizing: border-box;
+    overflow: clip !important;
+    /* Prevent internal scrollbars too */
+}
+
+.letter-popup::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar for Chrome/Safari */
 }
 
 .letter-content {
@@ -172,7 +213,11 @@ body {
     padding: 40px;
     border-radius: 15px;
     max-width: 500px;
-    width: 100%;
+    width: 90%;
+    max-height: 80vh;
+    /* Ensure it never exceeds viewport height */
+    overflow-y: auto;
+    /* Allow scrolling ONLY inside the letter if content is long */
     text-align: center;
     border: 2px solid var(--primary-pink);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -183,6 +228,13 @@ body {
     background-image:
         radial-gradient(circle at top left, #ffe6ea, transparent 100px),
         radial-gradient(circle at bottom right, #ffe6ea, transparent 100px);
+    scrollbar-width: none;
+    /* Hide scrollbar for Firefox inside letter */
+}
+
+.letter-content::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar for Chrome/Safari inside letter */
 }
 
 .close-btn {
@@ -293,9 +345,19 @@ body {
 
 /* --- Responsive Design --- */
 @media (max-width: 600px) {
+    body {
+        padding: 20px 10px;
+    }
+
+    .container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
     .envelope-wrapper {
         transform: scale(0.8);
-        /* Scale down the whole envelope */
     }
 
     .envelope-wrapper:hover {
@@ -320,15 +382,15 @@ body {
 
 @media (max-width: 400px) {
     .envelope-wrapper {
-        transform: scale(0.65);
+        transform: scale(0.6);
     }
 
     .envelope-wrapper:hover {
-        transform: scale(0.7);
+        transform: scale(0.65);
     }
 
     .nav-icons {
-        margin-top: 30px;
-        gap: 10px;
+        margin-top: 20px;
+        gap: 15px;
     }
 }
