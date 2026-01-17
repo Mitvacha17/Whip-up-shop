@@ -1,6 +1,6 @@
 const questions = [
     // Level 1: Basic (0-3)
-    { q: "What is my favorite color?", options: ["Blue", "Pink", "Black", "Red"], correct: 1 },
+    { q: "Baaby khit va kh muk kin y?", options: ["teen", "mu", "hxm", "khaophut"], correct: 1 },
     { q: "Where would I love to travel?", options: ["Paris", "Tokyo", "New York", "Maldives"], correct: 0 },
     { q: "What is my favorite food?", options: ["Pizza", "Sushi", "Burgers", "Pasta"], correct: 1 },
     { q: "Which movie can I watch forever?", options: ["Titanic", "The Notebook", "Marvel Movies", "Harry Potter"], correct: 1 },
@@ -19,6 +19,12 @@ let userAnswers = []; // Store indices of user choices
 let attempts = 3;
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Check Permanent Success
+    if (localStorage.getItem('quiz_success_lock') === 'true') {
+        showSuccessScreen();
+        return;
+    }
+
     // Check Permanent Lock
     if (localStorage.getItem('quiz_fatal_lock') === 'true') {
         showFatalLock();
@@ -103,13 +109,8 @@ function finishQuiz() {
 
     if (wrongDetails.length === 0) {
         // Success
-        resultTitle.innerText = "Perfect Score! ❤️";
-        resultMsg.innerText = "You know me perfectly. The letter is yours.";
-        homeBtn.classList.remove('hidden');
-
-        // Unlock Logic here if needed, usually main page detects this, 
-        // but for now, we just congratulate. 
-        // If we need to modify mit.js state:
+        localStorage.setItem('quiz_success_lock', 'true');
+        showSuccessScreen();
         sessionStorage.setItem('envelopeOpened', 'true');
     } else {
         // Fail
@@ -157,4 +158,9 @@ function showFatalLock() {
     localStorage.setItem('quiz_fatal_lock', 'true');
     document.querySelector('.quiz-container').classList.add('hidden');
     document.getElementById('lock-screen').classList.remove('hidden');
+}
+
+function showSuccessScreen() {
+    document.querySelector('.quiz-container').classList.add('hidden');
+    document.getElementById('success-screen').classList.remove('hidden');
 }

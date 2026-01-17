@@ -162,6 +162,65 @@
             opacity: 0;
             animation: fadeIn 2s forwards;
             font-family: 'Times New Roman', serif;
+            text-align: center;
+        }
+
+        .success-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            text-align: center;
+            color: #d81b60;
+        }
+
+        .success-msg {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            margin: 10px;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .success-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            opacity: 0;
+            animation: bounceIn 1s forwards 1.7s;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+
+            70% {
+                transform: scale(0.9);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         @keyframes scaleUp {
@@ -220,13 +279,21 @@
 
     <!-- Fatal Lock Screen -->
     <div id="lock-screen" class="lock-screen hidden">
-        <div class="lock-msg" style="animation-delay: 0.5s;">You don't love me.</div>
-        <div class="lock-msg" style="animation-delay: 2.5s;">You don't care about me.</div>
-        <div class="lock-msg" style="animation-delay: 4.5s;">You never truly paid attention to me.</div>
+        <div class="lock-msg" style="animation-delay: 0.5s;">Jao br huk khoi <br> Khuay</div>
         <div style="font-size: 4rem; margin-top: 30px; animation: fadeIn 2s forwards 6s; opacity: 0;">💔</div>
     </div>
 
-    <script src="quiz_script.js"></script>
+    <!-- Success Screen -->
+    <div id="success-screen" class="success-screen hidden">
+        <h1 class="success-msg" style="animation-delay: 0.5s;">Perfect Score! ❤️</h1>
+        <h2 class="success-msg" style="font-size: 2.5rem; animation-delay: 1s;">I Love You So Much</h2>
+        <img src="../assets/images/saow.jpeg" alt="Love" class="success-image">
+        <div class="success-msg" style="font-size: 1.8rem; animation-delay: 2.5s;">ເຈົ້າຮູ້ໃຈຂ້ອຍທີ່ສຸດເລີຍ! 💖</div>
+        <a href="../index.html" class="next-btn"
+            style="margin-top: 30px; animation: fadeIn 1s forwards 3.5s; opacity: 0;">Return Home</a>
+    </div>
+
+    <script src="quiz_script1.js"></script>
     <script>
         // Petals Logic
         const container = document.getElementById('petals-container');
