@@ -105,19 +105,65 @@
         const passInput = document.getElementById('secret-code');
         const errorMsg = document.getElementById('error-msg');
 
-        // Secret Password (You can change this)
-        const SECRET_PIN = "27052025";
+        // Security: Storing SHA-256 Hash instead of plain text
+        // Original: "27052025"
+        const ACCESS_HASH = "b0063a3637a422a2bccee580fb4fee35fb0f9aede4d4335589bae9d9194fc0f8";
 
-        function attemptUnlock() {
-            if (passInput.value === SECRET_PIN) {
-                sessionStorage.setItem('isUnlocked', 'true');
-                gateway.style.display = 'none'; // Force hide
-                dashboard.classList.remove('hidden');
-                dashboard.style.display = 'block'; // Force show
-            } else {
+        // Anti-Brute Force: 3 attempts then 30s cooldown
+        let attemptCount = 0;
+        let isLocked = false;
+
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function attemptUnlock() {
+            if (isLocked) {
+                errorMsg.textContent = "Too many attempts. Please wait 30s.";
                 errorMsg.classList.remove('hidden');
+                return;
+            }
+
+            const inputVal = passInput.value;
+            const inputHash = await sha256(inputVal);
+
+            if (inputHash === ACCESS_HASH) {
+                // Success
+                sessionStorage.setItem('isUnlocked', 'true');
+                gateway.style.display = 'none';
+                dashboard.classList.remove('hidden');
+                dashboard.style.display = 'block';
+                // Reset checks
+                attemptCount = 0;
+            } else {
+                // Fail
+                attemptCount++;
                 passInput.value = "";
                 passInput.classList.add('shake');
+
+                if (attemptCount >= 3) {
+                    isLocked = true;
+                    errorMsg.textContent = "System Locked for 30s due to multiple failures.";
+                    errorMsg.classList.remove('hidden');
+                    passInput.disabled = true;
+                    unlockBtn.disabled = true;
+
+                    setTimeout(() => {
+                        isLocked = false;
+                        attemptCount = 0;
+                        errorMsg.textContent = "Incorrect code. Please try again.";
+                        errorMsg.classList.add('hidden'); // Hide until next error
+                        passInput.disabled = false;
+                        unlockBtn.disabled = false;
+                    }, 30000);
+                } else {
+                    errorMsg.textContent = `Incorrect code. ${3 - attemptCount} attempts remaining.`;
+                    errorMsg.classList.remove('hidden');
+                }
+
                 setTimeout(() => passInput.classList.remove('shake'), 400);
             }
         }
