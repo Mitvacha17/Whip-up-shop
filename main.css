@@ -17,6 +17,10 @@
     visibility: hidden !important;
 }
 
+.hidden {
+    display: none !important;
+}
+
 :root {
     --primary-pink: #ffb7c5;
     --dark-pink: #d81b60;
@@ -301,5 +305,121 @@ input[type="text"]:focus {
 
     h1 {
         font-size: 1.8rem;
+    }
+}
+
+/* Password Gateway Styles */
+.password-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 183, 197, 0.4);
+    backdrop-filter: blur(15px);
+}
+
+.password-modal {
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    border: 1px solid var(--glass-border);
+    animation: fadeIn 0.5s ease;
+}
+
+.lock-icon {
+    font-size: 3rem;
+    color: var(--dark-pink);
+    margin-bottom: 20px;
+}
+
+.password-modal h2 {
+    font-family: 'Dancing Script', cursive;
+    color: var(--dark-pink);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.pass-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+#secret-code {
+    padding: 12px 20px;
+    border: 2px solid #ffe6ea;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    text-align: center;
+    outline: none;
+    transition: all 0.3s;
+}
+
+#secret-code:focus {
+    border-color: var(--dark-pink);
+    box-shadow: 0 0 10px rgba(216, 27, 96, 0.1);
+}
+
+#unlock-btn {
+    padding: 12px;
+    background: var(--dark-pink);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#unlock-btn:hover {
+    background: #c2185b;
+    transform: translateY(-2px);
+}
+
+.error-msg {
+    color: #f44336;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.shake {
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    75% {
+        transform: translateX(10px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
