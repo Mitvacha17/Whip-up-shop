@@ -3,7 +3,8 @@ const mockData = {
         { name: "valentine", type: "folder" }
     ],
     "valentine": [
-        { name: "Puna", type: "folder" }
+        { name: "Puna", type: "folder" },
+        { name: "Ja", type: "folder" }
     ]
 };
 
@@ -31,6 +32,10 @@ function navigateTo(folderName, addToPath = true) {
 
     if (folderName === "Puna") {
         window.open("valentine/Puna/index.html", "_blank");
+        return;
+    }
+    if (folderName === "Ja") {
+        window.open("valentine/Ja/index.html", "_blank");
         return;
     }
 
